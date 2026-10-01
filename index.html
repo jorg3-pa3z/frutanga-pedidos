@@ -10,6 +10,7 @@
 
 <style>
 
+
 *{
     margin:0;
     padding:0;
@@ -19,7 +20,6 @@
 
 body{
     min-height:100vh;
-    background:url('https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=1200') center center/cover;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -38,7 +38,7 @@ body{
 }
 
 .titulo h1{
-    font-size:42px;
+    font-size:35px;
     font-weight:300;
 }
 
@@ -139,6 +139,20 @@ button:hover{
 
 }
 
+input[readonly] {
+background-color: #f3f3f3;
+color: #555;
+font-weight: bold;
+border: 2px solid #d0d0d0;
+cursor: not-allowed;
+text-align: right;
+}
+ 
+input[readonly\]:focus {
+outline: none;
+box-shadow: none;
+}
+
 </style>
 </head>
 <body>
@@ -215,12 +229,22 @@ button:hover{
     </div>
 </div>
 
+<div class="producto total-section">
+    <div class="producto-info">
+         <h3>Total</h3>
+    </div>
+    <div class="cantidad">
+        <input type="number" id="total" value="0" readonly>
+    </div>
+</div>
+
 <h2 class="section-title">Entrega y Pago</h2>
 
 <div class="row">
 
 <div>
 <select id="ciudad">
+<option value="" disabled selected>Seleccione una ciudad</option>
 <option value="Artigas">Artigas</option>
 <option value="Quarai">Quarai</option>
 </select>
@@ -235,15 +259,29 @@ button:hover{
 </div>
 
 <div>
-<input type="text" id="hora" placeholder="Hora de entrega">
+<select id="hora">
+<option value="" disabled selected>Seleccione hora de entrega</option>
+<option value="5:00 pm a 6:00 pm">5:00 pm a 6:00 pm</option>
+<option value="6:00 pm a 7:00 pm">6:00 pm a 7:00 pm</option>
+<option value="5:00 pm a 8:00 pm">5:00 pm a 8:00 pm</option>
+<option value="6:00 pm a 8:00 pm">6:00 pm a 8:00 pm</option>
+<option value="7:00 pm a 8:00 pm">7:00 pm a 8:00 pm</option>
+</select>
 </div>
 
 <div>
-<input type="text" id="pago" placeholder="Forma de Pago">
+<select id="pago">
+<option value="" disabled selected>Seleccione Forma de Pago</option>
+<option value="Efectivo">Efectivo</option>
+<option value="Transferencia">Transferencia</option>
+<option value="Mercado Pago">Mercado Pago</option>
+</select>
 </div>
 
-<div>
-<input type="text" id="cambio" placeholder="Cambio de">
+<div id="cambioContainer" style="display:none;">
+    <div>
+    <input type="text" id="cambio" placeholder="Cambio de">
+    </div>
 </div>
 
 </div>
@@ -261,6 +299,50 @@ Enviar Pedido
 </div>
 
 <script>
+
+function calcularTotalPedido() {
+ 
+const helados = parseInt(document.getElementById("helados").value) || 0;
+const cubos = parseInt(document.getElementById("cubos").value) || 0;
+const picada = parseInt(document.getElementById("picada").value) || 0;
+const mango = parseInt(document.getElementById("mango").value) || 0;
+const jugos = parseInt(document.getElementById("jugos").value) || 0;
+ 
+const total =
+(helados * 100) +
+(cubos * 80) +
+(picada * 100) +
+(mango * 120) +
+(jugos * 150);
+ 
+document.getElementById("total").value = total;
+}
+ 
+// Asignar eventos a todos los campos
+["helados", "cubos", "picada", "mango", "jugos"]
+.forEach(id => {
+document.getElementById(id)
+.addEventListener("input", calcularTotalPedido);
+});
+ 
+// Calcular al cargar la página
+calcularTotalPedido();
+
+//Control de campo para cambio en efectivo
+const pago = document.getElementById("pago");
+const cambioContainer = document.getElementById("cambioContainer");
+const cambio = document.getElementById("cambio");
+ 
+pago.addEventListener("change", function () {
+ 
+if (this.value === "Efectivo") {
+cambioContainer.style.display = "block";
+} else {
+cambioContainer.style.display = "none";
+cambio.value = "";
+}
+ 
+});
 
 document
 .getElementById("pedidoForm")
@@ -298,23 +380,23 @@ document
     data.append("entry.2124359745",
         document.getElementById("jugos").value);
 
- //   data.append("entry.137519783",
- //       document.getElementById("ciudad").value);
+    data.append("entry.137519783",
+        document.getElementById("ciudad").value);
 
-   // data.append("entry.1160605822",
-   //     document.getElementById("calle").value);
+    data.append("entry.1160605822",
+         document.getElementById("calle").value);
 
-  //  data.append("entry.1170826010",
-   //     document.getElementById("puerta").value);
+    data.append("entry.1170826010",
+        document.getElementById("puerta").value);
 
-   // data.append("entry.1366238039",
-   //     document.getElementById("hora").value);
+    data.append("entry.1366238039",
+        document.getElementById("hora").value);
 
-   // data.append("entry.480163359",
-   //     document.getElementById("pago").value);
+    data.append("entry.480163359",
+        document.getElementById("pago").value);
 
-  //  data.append("entry.829494529",
-   //     document.getElementById("cambio").value);
+    data.append("entry.829494529",
+        document.getElementById("cambio").value);
 
     fetch(formUrl,{
         method:"POST",
