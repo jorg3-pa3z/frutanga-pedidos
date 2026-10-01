@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pedido Saludable</title>
+
+<link href="https://fonts.om/css2?family=Montserrat:wght@300;400;600&display=swap"/>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Montserrat',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:url('https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=1200') center center/cover;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.container{
+    width:100%;
+    max-width:850px;
+}
+
+.titulo{
+    text-align:center;
+    margin-bottom:25px;
+    color:#222;
+}
+
+.titulo h1{
+    font-size:42px;
+    font-weight:300;
+}
+
+.card{
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);
+    border-radius:35px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.section-title{
+    margin:20px 0;
+    font-size:24px;
+    color:#444;
+    border-bottom:2px solid #ddd;
+    padding-bottom:10px;
+}
+
+.producto{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    border-bottom:1px solid #d9d9d9;
+}
+
+.producto:last-child{
+    border:none;
+}
+
+.producto-info h3{
+    font-size:22px;
+    font-weight:600;
+}
+
+.producto-info small{
+    color:#666;
+}
+
+.cantidad{
+    width:90px;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:15px;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.full{
+    margin-bottom:15px;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    background:#6ab04c;
+    color:white;
+    border:none;
+    padding:16px;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#4e9a2f;
+}
+
+.success{
+    display:none;
+    text-align:center;
+    color:green;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+@media(max-width:768px){
+
+    .row{
+        grid-template-columns:1fr;
+    }
+
+    .titulo h1{
+        font-size:32px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="titulo">
+    <h1>¿Con qué te vas a nutrir hoy?</h1>
+</div>
+
+<div class="card">
+
+<form id="pedidoForm">
+
+<h2 class="section-title">Datos del Cliente</h2>
+
+<div class="full">
+    <input type="text" id="nombre" placeholder="Nombre" required>
+</div>
+
+<div class="full">
+    <input type="tel" id="celular" placeholder="Número de celular" required>
+</div>
+
+<h2 class="section-title">Cantidades del Pedido</h2>
+
+<div class="producto">
+    <div class="producto-info">
+        <h3>Helados Naturales</h3>
+        <small>100% fruta</small>
+    </div>
+    <div class="cantidad">
+        <input type="number" id="helados" min="0" value="0">
+    </div>
+</div>
+
+<div class="producto">
+    <div class="producto-info">
+        <h3>Fruta en Cubos</h3>
+        <small>200g. De estación</small>
+    </div>
+    <div class="cantidad">
+        <input type="number" id="cubos" min="0" value="0">
+    </div>
+</div>
+
+<div class="producto">
+    <div class="producto-info">
+        <h3>Fruta Picada</h3>
+        <small>Mix de estación</small>
+    </div>
+    <div class="cantidad">
+        <input type="number" id="picada" min="0" value="0">
+    </div>
+</div>
+
+<div class="producto">
+    <div class="producto-info">
+        <h3>Mango Condimentado</h3>
+        <small>Lima, sal y pimienta</small>
+    </div>
+    <div class="cantidad">
+        <input type="number" id="mango" min="0" value="0">
+    </div>
+</div>
+
+<div class="producto">
+    <div class="producto-info">
+        <h3>Jugos de 1 Litro</h3>
+        <small>Recién exprimidos</small>
+    </div>
+    <div class="cantidad">
+        <input type="number" id="jugos" min="0" value="0">
+    </div>
+</div>
+
+<h2 class="section-title">Entrega y Pago</h2>
+
+<div class="row">
+
+<div>
+<select id="ciudad">
+<option value="Artigas">Artigas</option>
+<option value="Quarai">Quarai</option>
+</select>
+</div>
+
+<div>
+<input type="text" id="calle" placeholder="Nombre de Calle">
+</div>
+
+<div>
+<input type="text" id="puerta" placeholder="Número de puerta">
+</div>
+
+<div>
+<input type="text" id="hora" placeholder="Hora de entrega">
+</div>
+
+<div>
+<input type="text" id="pago" placeholder="Forma de Pago">
+</div>
+
+<div>
+<input type="text" id="cambio" placeholder="Cambio de">
+</div>
+
+</div>
+
+<button type="submit">
+Enviar Pedido
+</button>
+
+<div class="success" id="success">
+✅ Pedido enviado correctamente
+</div>
+
+</form>
+</div>
+</div>
+
+<script>
+
+document
+.getElementById("pedidoForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const formUrl =
+"https://docs.google.com/forms/d/e/1FAIpQLSfeCrw8rvTgKMqKcrzQXUM8YyEWffPQNS_vTwi_eAmXUGCPZA/formResponse";
+
+    const data = new FormData();
+
+    // IMPORTANTE:
+    // Nombre tiene el mismo Field ID que Helados.
+    // Debes corregir el ID real del campo Nombre.
+
+    data.append("entry.1738348243",
+        document.getElementById("nombre").value);
+
+    data.append("entry.1265300431",
+        document.getElementById("celular").value);
+
+    data.append("entry.291005790",
+        document.getElementById("helados").value);
+
+    data.append("entry.1912509318",
+        document.getElementById("cubos").value);
+
+    data.append("entry.1631056886",
+        document.getElementById("picada").value);
+
+    data.append("entry.1423898694",
+        document.getElementById("mango").value);
+
+    data.append("entry.2124359745",
+        document.getElementById("jugos").value);
+
+ //   data.append("entry.137519783",
+ //       document.getElementById("ciudad").value);
+
+   // data.append("entry.1160605822",
+   //     document.getElementById("calle").value);
+
+  //  data.append("entry.1170826010",
+   //     document.getElementById("puerta").value);
+
+   // data.append("entry.1366238039",
+   //     document.getElementById("hora").value);
+
+   // data.append("entry.480163359",
+   //     document.getElementById("pago").value);
+
+  //  data.append("entry.829494529",
+   //     document.getElementById("cambio").value);
+
+    fetch(formUrl,{
+        method:"POST",
+        mode:"no-cors",
+        body:data
+    })
+    .then(()=>{
+
+        document
+        .getElementById("success")
+        .style.display="block";
+
+        document
+        .getElementById("pedidoForm")
+        .reset();
+
+    })
+    .catch(err=>{
+
+        alert("Error al enviar");
+
+        console.error(err);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
