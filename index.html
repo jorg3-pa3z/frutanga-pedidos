@@ -19,11 +19,15 @@
 }
 
 body{
+    background-color: #f4f6f8;
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     padding:30px;
+
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #2c3e50;
 }
 
 .container{
@@ -53,9 +57,10 @@ body{
 .section-title{
     margin:20px 0;
     font-size:24px;
-    color:#444;
+    color: #1e293b;
     border-bottom:2px solid #ddd;
     padding-bottom:10px;
+
 }
 
 .producto{
@@ -167,7 +172,7 @@ box-shadow: none;
 
 <form id="pedidoForm">
 
-<h2 class="section-title">Datos del Cliente</h2>
+<h2 class="section-title">Tus datos de envio</h2>
 
 <div class="full">
     <input type="text" id="nombre" placeholder="Nombre" required>
@@ -177,11 +182,11 @@ box-shadow: none;
     <input type="tel" id="celular" placeholder="Número de celular" required>
 </div>
 
-<h2 class="section-title">Cantidades del Pedido</h2>
+<h2 class="section-title">Arma tu pedido</h2>
 
 <div class="producto">
     <div class="producto-info">
-        <h3>Helados Naturales</h3>
+        <h3>Helados Naturales $100</h3>
         <small>100% fruta</small>
     </div>
     <div class="cantidad">
@@ -191,7 +196,7 @@ box-shadow: none;
 
 <div class="producto">
     <div class="producto-info">
-        <h3>Fruta en Cubos</h3>
+        <h3>Fruta en Cubos $80</h3>
         <small>200g. De estación</small>
     </div>
     <div class="cantidad">
@@ -199,9 +204,10 @@ box-shadow: none;
     </div>
 </div>
 
+
 <div class="producto">
     <div class="producto-info">
-        <h3>Fruta Picada</h3>
+        <h3>Fruta Picada $100</h3>
         <small>Mix de estación</small>
     </div>
     <div class="cantidad">
@@ -211,7 +217,7 @@ box-shadow: none;
 
 <div class="producto">
     <div class="producto-info">
-        <h3>Mango Condimentado</h3>
+        <h3>Mango Condimentado $120</h3>
         <small>Lima, sal y pimienta</small>
     </div>
     <div class="cantidad">
@@ -221,7 +227,7 @@ box-shadow: none;
 
 <div class="producto">
     <div class="producto-info">
-        <h3>Jugos de 1 Litro</h3>
+        <h3>Jugos de 1 Litro $150</h3>
         <small>Recién exprimidos</small>
     </div>
     <div class="cantidad">
@@ -234,11 +240,11 @@ box-shadow: none;
          <h3>Total</h3>
     </div>
     <div class="cantidad">
-        <input type="number" id="total" value="0" readonly>
+        <input id="total" value="0" readonly>
     </div>
 </div>
 
-<h2 class="section-title">Entrega y Pago</h2>
+<h2 class="section-title">Entrega y pago</h2>
 
 <div class="row">
 
@@ -315,7 +321,7 @@ const total =
 (mango * 120) +
 (jugos * 150);
  
-document.getElementById("total").value = total;
+document.getElementById("total").value = "$" + total;
 }
  
 // Asignar eventos a todos los campos
